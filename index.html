@@ -6,7 +6,7 @@
       google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
-  var query = new google.visualization.Query(URL);
+  var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1BNG4oZQlPWfkJzf-R8N-rB1u0fL4bM3RPZnd31Lp3FI/edit#gid=0');
   query.send(handleQueryResponse);
 }
 
