@@ -1,34 +1,32 @@
-<head>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
-    google.charts.load('current', {packages: ['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
-    function drawVisualization() {
-    var query = new google.visualization.Query(
-        'http://spreadsheets.google.com/tq?key=pCQbetd-CptGXxxQIG7VFIQ&pub=1');
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses'],
+          ['2004',  1000,      400],
+          ['2005',  1170,      460],
+          ['2006',  660,       1120],
+          ['2007',  1030,      540]
+        ]);
 
-    // Apply query language statement.
-    query.setQuery('SELECT A,D WHERE D > 100 ORDER BY D');
-    
-    // Send the query with a callback function.
-    query.send(handleQueryResponse);
-  }
+        var options = {
+          title: 'Company Performance',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
 
-  function handleQueryResponse(response) {
-    if (response.isError()) {
-      alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-      return;
-    }
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
-    var data = response.getDataTable();
-    visualization = new google.visualization.LineChart(document.getElementById('visualization'));
-    visualization.draw(data, {legend: 'bottom'});
-  }
-  </script>
-</head>
-<body>
-<!-- Identify where the chart should be drawn. -->
-
-<div id="myPieChart"/>
-</body>
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+  </body>
+</html>
